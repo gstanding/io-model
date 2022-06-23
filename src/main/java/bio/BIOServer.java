@@ -30,13 +30,16 @@ public class BIOServer {
                         );
                 ExecutorService executorService = Executors.newFixedThreadPool(5);
                 final Socket finalSocket = socket;
+                Socket finalSocket1 = socket;
                 executorService.execute(()-> {
                     // 获取socket的输入流和输出流
                     try(ObjectInputStream ois = new ObjectInputStream(finalSocket.getInputStream());
                         ObjectOutputStream oos = new ObjectOutputStream(finalSocket.getOutputStream())
                     ) {
                         // 根据定义的传输格式序列化协议得到对象并解析
+                        log.info("阻塞在这里");
                         byte b = ois.readByte();
+                        log.info("读到数据，结束阻塞");
                         log.info("收到客户端发来的：{}", b);
                         oos.writeByte(1);
                         oos.flush();

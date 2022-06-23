@@ -15,7 +15,9 @@ public class BIOClient {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeByte(1);
             oos.flush();
+
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            // 这里也是阻塞的
             byte b = ois.readByte();
             log.info("从服务器收到：{}", b);
 
